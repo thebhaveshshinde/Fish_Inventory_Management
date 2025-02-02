@@ -1,6 +1,12 @@
+<script setup lang="ts">
+import { NuxtLayout, NuxtPage } from '#components';
+
+</script>
+
 <template>
-  <div>
-    <NuxtRouteAnnouncer />
-    <NuxtWelcome />
-  </div>
+  <NuxtLayout>
+    <NuxtPage/>
+  </NuxtLayout>
 </template>
+
+
