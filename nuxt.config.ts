@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
-  modules: ['@sidebase/nuxt-auth','@nuxtjs/tailwindcss'],
+  modules: ['@sidebase/nuxt-auth', '@nuxt/ui','@nuxtjs/google-fonts'],
   runtimeConfig:{
     public: {
         apiKey: process.env.FIREBASE_API_KEY,
@@ -30,17 +30,29 @@ export default defineNuxtConfig({
     disableServerSideAuth: false,
     originEnvKey: 'AUTH_ORIGIN',
     baseURL: 'http://localhost:3000/api/auth',
-		provider: {
-			type: "authjs",
-		},
+        provider: {
+            type: "authjs",
+        },
   	},
+    googleFonts: {
+      families: {
+        Roboto: {
+          wght: "100..900",
+        },
+      },
+    },
+
     tailwindcss: {
       config: {
         theme: {
           extend: {
-        
+            fontFamily: {
+              sans: ['Inter var', 'system-ui', 'sans-serif'],
+              lato: ['Lato', 'sans-serif']
+            }
           }
         }
       }
-    }
+    },
+   
 })
