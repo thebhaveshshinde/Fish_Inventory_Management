@@ -4,9 +4,9 @@ import { NuxtLayout, NuxtPage } from '#components';
 </script>
 
 <template>
-  <NuxtLayout>
-    <NuxtPage/>
-  </NuxtLayout>
+  <main class="w-full h-full bg-gray-100">
+    <NuxtLayout class="w-full h-full">
+      <NuxtPage />
+    </NuxtLayout>
+  </main>
 </template>
-
-
