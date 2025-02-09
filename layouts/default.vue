@@ -18,6 +18,7 @@
 
         </div>
 
+        <UButton @click="signOut()" class="fixed bottom-10 right-10" color="red">Logout</UButton>
       </USlideover>
 
     </nav>
@@ -27,6 +28,12 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { UButton } from '#components';
+
 const route = useRoute()
 const isOpen = ref(false)
+const { signOut } = useAuth()
+definePageMeta({
+  middleware: 'sidebase-auth'
+})
 </script>

@@ -33,7 +33,7 @@
 
 definePageMeta({
     isAlive: true,
-    middlewares: 'sidebase-auth'
+    middleware: 'sidebase-auth'
 })
 
 </script>
