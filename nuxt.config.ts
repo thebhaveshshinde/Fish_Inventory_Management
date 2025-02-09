@@ -29,7 +29,7 @@ export default defineNuxtConfig({
     isEnabled: true,
     disableServerSideAuth: false,
     originEnvKey: 'AUTH_ORIGIN',
-    baseURL: 'http://localhost:3000/api/auth',
+    baseURL: 'https://fish-inventory-management.vercel.app/api/auth',
         provider: {
             type: "authjs",
         },
