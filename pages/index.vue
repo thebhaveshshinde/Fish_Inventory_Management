@@ -24,12 +24,74 @@
             </div>
         </div>
         <div class="flex flex-row justify-center space-x-4 mt-10">
-            <UButton color="gray" size="xl" variant="solid">Add Vendors</UButton>
+            <UButton @click="isAddVendorModalOpen = true" color="gray" size="xl" variant="solid">Add Vendors</UButton>
             <UButton color="teal" size="xl" variant="solid">Manage Users</UButton>
         </div>
+        <UModal v-model="isAddVendorModalOpen">
+            <UCard :ui="{ ring: '', divide: 'divide-y divide-gray-100 dark:divide-gray-800' }">
+                <template #header>
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                            Add Vendors
+                        </h3>
+                        <UButton color="gray" variant="ghost" icon="i-heroicons-x-mark-20-solid" class="-my-1"
+                            @click="isAddVendorModalOpen = false" />
+                    </div>
+                </template>
+                <template #default>
+                    <form class="space-y-4">
+                        <!-- Name Input -->
+                        <div>
+                            <label for="name"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
+                            <input type="text" id="name" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+                        </div>
+
+                        <!-- Email Input -->
+                        <div>
+                            <label for="email"
+                                class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
+                            <input type="email" id="email" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+                        </div>
+
+                        <!-- Phone Number Input -->
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Phone
+                                Number</label>
+                            <input type="tel" id="phone" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+                        </div>
+
+                        <!-- Plan Select Dropdown -->
+                        <div>
+                            <label for="plan" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Select
+                                Plan</label>
+                            <select id="plan" ref="plan" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600">
+                                <option value="monthly">Monthly Plan</option>
+                                <option value="3months">3 Months Plan</option>
+                                <option value="yearly">Yearly Plan</option>
+                            </select>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="flex justify-center">
+                            <UButton type="submit" color="indigo" class="mt-4">
+                                Submit
+                            </UButton>
+                        </div>
+                    </form>
+                </template>
+            </UCard>
+        </UModal>
     </main>
 </template>
 <script lang="ts" setup>
+
+
+const isAddVendorModalOpen = ref(false)
 
 definePageMeta({
     isAlive: true,
