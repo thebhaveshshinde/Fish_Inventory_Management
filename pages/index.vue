@@ -39,12 +39,12 @@
                     </div>
                 </template>
                 <template #default>
-                    <form class="space-y-4">
+                    <div class="space-y-4">
                         <!-- Name Input -->
                         <div>
                             <label for="name"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Name</label>
-                            <input type="text" id="name" required
+                            <input v-model="vendors.name" type="text" id="name" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
                         </div>
 
@@ -52,7 +52,7 @@
                         <div>
                             <label for="email"
                                 class="block text-sm font-medium text-gray-700 dark:text-gray-200">Email</label>
-                            <input type="email" id="email" required
+                            <input type="email" v-model="vendors.email" id="email" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
                         </div>
 
@@ -60,15 +60,31 @@
                         <div>
                             <label for="phone" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Phone
                                 Number</label>
-                            <input type="tel" id="phone" required
+                            <input type="tel" id="phone" v-model="vendors.phone" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+                        </div>
+
+                        <div>
+                            <label for="Address" class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                Address</label>
+                            <input type="text" id="address" v-model="vendors.address" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+
+                        </div>
+
+                        <div>
+                            <label for="Address" class="block text-sm font-medium text-gray-700 dark:text-gray-200">
+                                Locality</label>
+                            <input type="text" id="address" v-model="vendors.locality" required
+                                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600" />
+
                         </div>
 
                         <!-- Plan Select Dropdown -->
                         <div>
                             <label for="plan" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Select
                                 Plan</label>
-                            <select id="plan" ref="plan" required
+                            <select id="plan" v-model="vendors.plan" ref="plan" required
                                 class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 dark:bg-gray-700 dark:text-white dark:border-gray-600">
                                 <option value="monthly">Monthly Plan</option>
                                 <option value="3months">3 Months Plan</option>
@@ -78,23 +94,72 @@
 
                         <!-- Submit Button -->
                         <div class="flex justify-center">
-                            <UButton type="submit" color="indigo" class="mt-4">
+                            <UButton :loading="isDataSubmitting" :disabled="!isVendorsFormvalid" @click="addVendor()"
+                                color="indigo" class="mt-4">
                                 Submit
                             </UButton>
                         </div>
-                    </form>
+                    </div>
                 </template>
             </UCard>
         </UModal>
     </main>
 </template>
 <script lang="ts" setup>
+import { Timestamp } from 'firebase/firestore';
 
 
+const toast = useToast()
 const isAddVendorModalOpen = ref(false)
+const vendors = ref<Vendors>({
+    name: '',
+    email: '',
+    phone: '',
+    plan: 'monthly',
+    address: '',
+    dateOfJoining: Timestamp.fromDate(new Date()),
+    dateOfLastRenewal: Timestamp.fromDate(new Date()),
+    locality: ''
+})
+const isDataSubmitting = ref(false)
+
+const isVendorsFormvalid = computed(() => {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return (vendors.value.name.length > 0 && vendors.value.phone.length === 10 && emailRegex.test(vendors.value.email) && vendors.value.plan.length > 0)
+})
+
+async function addVendor() {
+    isDataSubmitting.value = true
+    const response: { status: number } = await $fetch('/api/addVendors', {
+        method: 'POST',
+        body: {
+            vendor: vendors.value
+        }
+    })
+
+    if (response.status === 200) {
+        toast.add({
+            title: 'Success',
+            description: 'Vendor Added Successfully !!',
+            icon: 'i-heroicons-check-circle'
+        })
+
+    }
+    else {
+        toast.add({
+            title: 'Error',
+            description: 'Some Errors Occured',
+
+        })
+
+    }
+    isDataSubmitting.value = false
+    isAddVendorModalOpen.value = false
+
+}
 
 definePageMeta({
-    isAlive: true,
+
     middleware: 'sidebase-auth'
 })
 
