@@ -2,7 +2,7 @@ import { Timestamp } from "firebase/firestore"
 
 declare global {
     type Vendors={
-        id:string,
+        id?:string,
         name:string,
         email:string,
         phone:string,
