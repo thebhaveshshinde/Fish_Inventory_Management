@@ -12,7 +12,7 @@
             <div class="grid grid-cols-3 gap-6">
                 <div
                     class="bg-gray-600 w-24 cursor-pointer h-24 rounded-lg flex flex-col items-center justify-center text-white text-3xl font-bold shadow-md">
-                    <span>{{ vendorState }}</span>
+                    <span>5</span>
                     <span class="text-sm font-medium">Vendors</span>
                 </div>
                 <div
