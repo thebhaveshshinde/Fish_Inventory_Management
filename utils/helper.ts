@@ -9,7 +9,7 @@ export const checkIfUserExistsInVendors = async (
   if (userExists) {
     navigateTo("/vendors/");
   } else if (admins.includes(email)) {
-    navigateTo("/admin");
+    return;
   } else {
     navigateTo("/unauthorized");
   }
