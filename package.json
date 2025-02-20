@@ -12,9 +12,10 @@
   "dependencies": {
     "@nuxt/ui": "2.21.0",
     "@sidebase/nuxt-auth": "0.10.0",
-    "firebase": "^11.2.0",
+    "firebase": "^11.3.1",
     "next-auth": "~4.21.1",
     "nuxt": "^3.15.2",
+    "nuxt-vuefire": "1.0.5",
     "vue": "latest",
     "vue-router": "latest",
     "vuefire": "^3.2.1"
