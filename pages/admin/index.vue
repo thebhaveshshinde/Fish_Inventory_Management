@@ -42,8 +42,9 @@
                 >Manage Users</UButton
             >
         </div>
-        <UModal v-model="isAddVendorModalOpen">
+        <UModal class="relative" prevent-close v-model="isAddVendorModalOpen">
             <UCard
+                class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 mx-4"
                 :ui="{
                     ring: '',
                     divide: 'divide-y divide-gray-100 dark:divide-gray-800',
@@ -66,7 +67,7 @@
                     </div>
                 </template>
                 <template #default>
-                    <div class="space-y-4">
+                    <div class="space-y-4 w-96">
                         <!-- Name Input -->
                         <div>
                             <label

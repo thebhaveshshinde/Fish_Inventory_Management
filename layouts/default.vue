@@ -52,20 +52,16 @@
 </template>
 <script lang="ts" setup>
 import { useVendors } from "../utils/composables/useVendors";
+import { collection } from "firebase/firestore";
+import { useCollection, useFirestore } from "vuefire";
+const stateVendors = useVendors();
+const db = useFirestore();
+const vendorsCollection = collection(db, "vendors");
+const vendors = useCollection(vendorsCollection).value;
 
-const vendors = useVendors();
-
-async function getVendors() {
-    const response: { status: number; vendors: Vendors[] } =
-        await $fetch("/api/getVendors");
-    if (response.status === 200) {
-        vendors.value = response.vendors;
-    }
-}
+stateVendors.value = vendors as Vendors[];
 
 const route = useRoute();
 const isOpen = ref(false);
 const { signOut } = useAuth();
-
-await getVendors();
 </script>
