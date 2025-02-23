@@ -25,24 +25,69 @@
                 class="w-10 h-10 cursor-pointer"
             />
             <USlideover v-model="isOpen">
-                <div class="p-4 flex-1">
-                    <UButton
-                        color="purple"
-                        variant="ghost"
-                        size="xl"
-                        icon="i-heroicons-x-mark-20-solid"
-                        class="flex sm:hidden absolute end-5 top-5 z-10"
-                        padded
-                        @click="isOpen = false"
-                    />
-                </div>
+                <div class="h-full w-full">
+                    <div class="p-4 flex-1">
+                        <UButton
+                            color="purple"
+                            variant="ghost"
+                            size="xl"
+                            icon="i-heroicons-x-mark-20-solid"
+                            class="flex sm:hidden absolute end-5 top-5 z-10"
+                            padded
+                            @click="isOpen = false"
+                        />
+                    </div>
 
-                <UButton
-                    @click="signOut()"
-                    class="fixed bottom-10 right-10"
-                    color="red"
-                    >Logout</UButton
-                >
+                    <UButton
+                        @click="signOut()"
+                        class="fixed bottom-10 right-10"
+                        color="red"
+                        >Logout</UButton
+                    >
+
+                    <div class="flex flex-col space-y-4 p-4">
+                        <nuxt-link
+                            to="/add-transaction"
+                            class="flex items-center space-x-4 text-white text-2xl font-bold bg-blue-700 hover:bg-blue-900 p-4 rounded-lg w-full"
+                        >
+                            <UIcon
+                                name="i-heroicons-plus-circle"
+                                class="w-8 h-8"
+                            ></UIcon>
+                            <span>Add Transaction</span>
+                        </nuxt-link>
+                        <nuxt-link
+                            to="/add-fishermans"
+                            class="flex items-center space-x-4 text-white text-2xl font-bold bg-green-700 hover:bg-green-900 p-4 rounded-lg w-full"
+                        >
+                            <UIcon
+                                name="i-heroicons-user"
+                                class="w-8 h-8"
+                            ></UIcon>
+                            <span>Add Fishermans</span>
+                        </nuxt-link>
+                        <nuxt-link
+                            to="/bills"
+                            class="flex items-center space-x-4 text-white text-2xl font-bold bg-yellow-700 hover:bg-yellow-900 p-4 rounded-lg w-full"
+                        >
+                            <UIcon
+                                name="i-heroicons-document-text"
+                                class="w-8 h-8"
+                            ></UIcon>
+                            <span>Bills</span>
+                        </nuxt-link>
+                        <nuxt-link
+                            to="/payments"
+                            class="flex items-center space-x-4 text-white text-2xl font-bold bg-red-700 hover:bg-red-900 p-4 rounded-lg w-full"
+                        >
+                            <UIcon
+                                name="i-heroicons-credit-card"
+                                class="w-8 h-8"
+                            ></UIcon>
+                            <span>Payments</span>
+                        </nuxt-link>
+                    </div>
+                </div>
             </USlideover>
         </nav>
         <main class="h-full w-full bg-gray-100">
