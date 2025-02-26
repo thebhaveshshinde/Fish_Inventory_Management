@@ -1,5 +1,5 @@
 <template>
-    <mainn>
+    <main>
         <nav class="fixed p-4 top-0 z-10 left-0 right-0">
             <div>
                 <svg width="80" height="21" viewBox="0 0 80 21" fill="black" xmlns="http://www.w3.org/2000/svg">
@@ -35,8 +35,18 @@
                 </div>
             </div>
         </footer>
-    </mainn>
+    </main>
 </template>
 <script lang="ts" setup>
+import { collection } from "firebase/firestore";
+import { useRoute } from "vue-router";
+import { useVendors } from "~/utils/composables/useVendors";
+
 const route = useRoute();
+const stateVendors = useVendors();
+const db = useFirestore();
+const vendorsCollection = collection(db, "vendors");
+const vendors = useCollection(vendorsCollection).value;
+
+stateVendors.value = vendors as Vendors[];
 </script>
