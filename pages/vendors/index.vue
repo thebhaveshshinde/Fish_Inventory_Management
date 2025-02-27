@@ -55,7 +55,7 @@
             class="flex items-center gap-2 px-4 py-2 text-white bg-yellow-400 rounded-md hover:bg-yellow-500"
           >
             <UIcon name="i-heroicons-currency-rupee" class="w-5 h-5" />
-            <span>Pay Now</span>
+            <span>Add Transaction</span>
           </button>
         </div>
         <div class="flex mt-2 space-x-4">
