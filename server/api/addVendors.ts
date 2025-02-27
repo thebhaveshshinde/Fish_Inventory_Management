@@ -1,25 +1,24 @@
 import { initializeApp } from "firebase/app";
-import { collection, getFirestore, setDoc,doc } from "firebase/firestore";
+import { collection, doc, getFirestore, setDoc } from "firebase/firestore";
 
-const config=useRuntimeConfig()
+const config = useRuntimeConfig();
 
-const firebase=initializeApp(config.firebaseConfig)
+const firebase = initializeApp(config.firebaseConfig);
 
-const db=getFirestore(firebase)
+const db = getFirestore(firebase);
 
-export default defineEventHandler(async(event)=>{
-    const data:{vendor:Vendors}= await readBody(event)
-    console.log(data)
-    try{
-    const response=await setDoc(doc(collection(db,'vendors')),data.vendor)
+export default defineEventHandler(async (event) => {
+	const data: { vendor: Vendors } = await readBody(event);
 
-     return {
-        status:200
-     }
-    }
-    catch{
-     return{
-        status:500
-     }
-    }
-})
+	try {
+		const response = await setDoc(doc(collection(db, "vendors")), data.vendor);
+
+		return {
+			status: 200,
+		};
+	} catch {
+		return {
+			status: 500,
+		};
+	}
+});
