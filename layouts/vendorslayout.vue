@@ -1,6 +1,6 @@
 <template>
     <main>
-        <nav class="fixed p-4 top-0 z-10 left-0 right-0">
+        <nav class="fixed top-0 left-0 right-0 z-10 p-4">
             <div>
                 <svg width="80" height="21" viewBox="0 0 80 21" fill="black" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -13,28 +13,31 @@
             </div>
         </nav>
         <slot />
-        <footer class="fixed bottom-10 left-1/2 transform -translate-x-1/2">
-            <div class="w-full flex justify-center items-center max-w-md">
-                <div role="tablist" class="tabs  bg-green-900 text-gray-100 tabs-boxed table-zebra-zebra">
-                    <NuxtLink to="/vendors" class="tab tabs-xl font-semibold"
-                        :class="{ 'bg-green-400 text-gray-600': route.path === '/vendors' }">
-                        <UIcon name="i-heroicons-user" class="w-8 h-8 mr-3" />
-                        Fisherman
-                    </NuxtLink>
-                    <NuxtLink to="/vendors/bills" class="tab tabs-xl font-semibold  "
-                        :class="{ 'bg-green-400 text-gray-600': route.path === '/vendors/bills' }">
-                        <UIcon name="i-heroicons-clipboard-document-check" class="w-8 h-8 mr-3" />
-                        Bills
-                    </NuxtLink>
-                    <NuxtLink to="/vendors/settlements" class="tab tabs-xl font-semibold "
-                        :class="{ 'bg-green-400 text-gray-600': route.path === '/vendors/settlements' }">
-                        <UIcon name="i-heroicons-document-currency-rupee" class="w-8 h-8 mr-3" />
-                        Settlements
-                    </NuxtLink>
 
-                </div>
-            </div>
-        </footer>
+       <footer class="fixed bottom-0 left-0 w-full bg-white shadow-lg">
+    <div role="tablist" class="flex">
+      
+      <NuxtLink to="/vendors" class="flex-1 text-center" 
+        :class="route.path === '/vendors' ? 'bg-white text-pink-700 border-t-4 border-pink-500' : 'bg-gray-800'">
+        <UIcon name="i-heroicons-user" class="w-6 h-6 mx-auto text-blue-600" />
+        <span class="block text-sm font-bold text-blue-600">Fisherman</span>
+      </NuxtLink>
+
+     
+      <NuxtLink to="/vendors/bills" class="flex-1 text-center" 
+        :class="route.path === '/vendors/bills' ? 'bg-white text-blue-700 border-t-4 border-blue-500' : 'bg-gray-800'">
+        <UIcon name="i-heroicons-clipboard-document-check" class="w-6 h-6 mx-auto text-blue-600" />
+        <span class="block text-sm font-bold text-blue-600">Bills</span>
+      </NuxtLink>
+
+      
+      <NuxtLink to="/vendors/settlements" class="flex-1 text-center" 
+        :class="route.path === '/vendors/settlements' ? 'bg-white text-green-700 border-t-4 border-green-500' : 'bg-gray-800'">
+        <UIcon name="i-heroicons-document-currency-rupee" class="w-6 h-6 mx-auto text-blue-800" />
+        <span class="block text-sm font-bold text-blue-800">Settlements</span>
+      </NuxtLink>
+    </div>
+  </footer>
     </main>
 </template>
 <script lang="ts" setup>
