@@ -96,13 +96,20 @@
     </div>
 </template>
 <script lang="ts" setup>
-import { useVendors } from "../utils/composables/useVendors";
 import { collection } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
+import { useVendors } from "../utils/composables/useVendors";
 const stateVendors = useVendors();
 const db = useFirestore();
 const vendorsCollection = collection(db, "vendors");
-const vendors = useCollection(vendorsCollection).value;
+const { data } = useCollection(vendorsCollection);
+
+const vendors = data.value.map((doc) => {
+	return {
+		id: doc.id,
+		...doc,
+	};
+});
 
 stateVendors.value = vendors as Vendors[];
 

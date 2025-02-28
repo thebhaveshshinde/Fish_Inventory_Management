@@ -43,13 +43,29 @@
 <script lang="ts" setup>
 import { collection } from "firebase/firestore";
 import { useRoute } from "vue-router";
+import { useCurrentVendor } from "~/utils/composables/useCurrentVendor";
 import { useVendors } from "~/utils/composables/useVendors";
-
+const { data: authData } = useAuth();
 const route = useRoute();
 const stateVendors = useVendors();
 const db = useFirestore();
 const vendorsCollection = collection(db, "vendors");
 const vendors = useCollection(vendorsCollection).value;
-
 stateVendors.value = vendors as Vendors[];
+const currentVendor = stateVendors.value.find(
+	(vendor) => vendor.email === authData.value?.user?.email,
+);
+if (currentVendor) {
+	useCurrentVendor().value = currentVendor;
+}
+
+function checkUser() {
+	if (!authData.value?.user) {
+		if (!currentVendor) {
+			return navigateTo("/unauthorized");
+		}
+	}
+}
+
+checkUser();
 </script>
