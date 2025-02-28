@@ -1,7 +1,6 @@
 <template>
   <main class="flex flex-col h-screen pt-20 overflow-y-scroll">
     <div class="flex items-center justify-center space-x-2">
-        
       <input
         type="text"
         placeholder="Search..."
@@ -14,10 +13,13 @@
         <UIcon name="i-heroicons-plus" class="w-5 h-5" />
       </button>
     </div>
-    <div class="flex flex-wrap items-center justify-center gap-4 h-[80%] overflow-y-scroll scroll-smooth py-6 mt-4">
-
+    <div
+      class="flex flex-wrap items-start justify-center gap-4 h-[80%] overflow-y-scroll scroll-smooth py-6 mt-4"
+    >
       <div
-        v-for="fisherman in fishermans?.filter((fisherman)=>fisherman.vendorsid===currentVendor.id)"
+        v-for="fisherman in fishermans?.filter(
+          (fisherman) => fisherman.vendorsid === currentVendor.id
+        )"
         :key="fisherman.id"
         class="flex flex-col items-center p-4 bg-white rounded-lg shadow-md w-96"
       >
@@ -114,25 +116,25 @@ const isFishermanAddFormOpen = ref(false);
 const vendorUser = ref<Vendors>();
 const stateVendor = useVendors().value;
 vendorUser.value = stateVendor.find(
-	(vendor) => vendor.email === authData.value?.user?.email,
+  (vendor) => vendor.email === authData.value?.user?.email
 );
 const currentVendor = useCurrentVendor().value;
 const closeFisherManAddModal = () => {
-	isFishermanAddFormOpen.value = false;
+  isFishermanAddFormOpen.value = false;
 };
 const firestore = useFirestore();
 const fishermanCollection = collection(firestore, "fishermans");
 const fishermanQuery = query(fishermanCollection);
 const unsubscribe = onSnapshot(fishermanQuery, (snapshot) => {
-	fishermans.value = snapshot.docs.map((doc) => doc.data()) as Fisherman[];
+  fishermans.value = snapshot.docs.map((doc) => doc.data()) as Fisherman[];
 });
 
 definePageMeta({
-	layout: "vendorslayout",
-	middleware: "sidebase-auth",
+  layout: "vendorslayout",
+  middleware: "sidebase-auth",
 });
 
 onBeforeUnmount(() => {
-	unsubscribe();
+  unsubscribe();
 });
 </script>
