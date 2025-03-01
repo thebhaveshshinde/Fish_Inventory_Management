@@ -42,4 +42,15 @@ declare global {
 			totalprice: number;
 		}[];
 	};
+
+	type DefaultPrice = {
+		Per_Kg?: number;
+		Per_Unit?: number;
+		Per_Dozen?: number;
+	};
+
+	type Fishschema = {
+		Fish_name: string;
+		Default_price: DefaultPrice;
+	};
 }
