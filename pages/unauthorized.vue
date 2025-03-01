@@ -5,4 +5,8 @@
         </h4>
     </main>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+definePageMeta({
+	middleware: "sidebase-auth",
+});
+</script>

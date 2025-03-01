@@ -38,9 +38,9 @@
                 variant="solid"
                 >Add Vendors</UButton
             >
-            <UButton color="teal" size="xl" variant="solid"
-                >Manage Users</UButton
-            >
+               <UButton color="teal" size="xl" variant="solid">
+                Manage Users
+               </UButton>
         </div>
         <UModal class="relative" prevent-close v-model="isAddVendorModalOpen">
             <UCard
@@ -195,57 +195,57 @@ const { data } = useAuth();
 const toast = useToast();
 const isAddVendorModalOpen = ref(false);
 definePageMeta({
-    middleware: "sidebase-auth",
+	middleware: "sidebase-auth",
 });
 const vendors = ref<Vendors>({
-    name: "",
-    email: "",
-    phone: "",
-    plan: "monthly",
-    address: "",
-    dateOfJoining: Timestamp.fromDate(new Date()),
-    dateOfLastRenewal: Timestamp.fromDate(new Date()),
-    locality: "",
+	name: "",
+	email: "",
+	phone: "",
+	plan: "monthly",
+	address: "",
+	dateOfJoining: Timestamp.fromDate(new Date()),
+	dateOfLastRenewal: Timestamp.fromDate(new Date()),
+	locality: "",
 });
 const isDataSubmitting = ref(false);
 
 const isVendorsFormvalid = computed(() => {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-    return (
-        vendors.value.name.length > 0 &&
-        vendors.value.phone.length === 10 &&
-        emailRegex.test(vendors.value.email) &&
-        vendors.value.plan.length > 0
-    );
+	const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	return (
+		vendors.value.name.length > 0 &&
+		vendors.value.phone.length === 10 &&
+		emailRegex.test(vendors.value.email) &&
+		vendors.value.plan.length > 0
+	);
 });
 
 async function addVendor() {
-    isDataSubmitting.value = true;
-    const response: { status: number } = await $fetch("/api/addVendors", {
-        method: "POST",
-        body: {
-            vendor: vendors.value,
-        },
-    });
+	isDataSubmitting.value = true;
+	const response: { status: number } = await $fetch("/api/addVendors", {
+		method: "POST",
+		body: {
+			vendor: vendors.value,
+		},
+	});
 
-    if (response.status === 200) {
-        toast.add({
-            title: "Success",
-            description: "Vendor Added Successfully !!",
-            icon: "i-heroicons-check-circle",
-        });
-    } else {
-        toast.add({
-            title: "Error",
-            description: "Some Errors Occured",
-        });
-    }
-    isDataSubmitting.value = false;
-    isAddVendorModalOpen.value = false;
+	if (response.status === 200) {
+		toast.add({
+			title: "Success",
+			description: "Vendor Added Successfully !!",
+			icon: "i-heroicons-check-circle",
+		});
+	} else {
+		toast.add({
+			title: "Error",
+			description: "Some Errors Occured",
+		});
+	}
+	isDataSubmitting.value = false;
+	isAddVendorModalOpen.value = false;
 }
 
 checkIfUserExistsInVendors(
-    vendorState.value,
-    data.value?.user?.email as string,
+	vendorState.value,
+	data.value?.user?.email as string,
 );
 </script>
