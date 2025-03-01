@@ -1,6 +1,6 @@
 <template>
   <main>
-    <nav class="fixed top-0 left-0 right-0 z-10 p-4">
+    <nav class="fixed top-0 left-0 right-0 w-full flex justify-between z-10 p-4">
       <div>
         <svg
           width="80"
@@ -18,7 +18,9 @@
             fill="black"
           />
         </svg>
+       
       </div>
+      <UIcon name="i-heroicons-arrow-right-start-on-rectangle"  @click="signOut()" class="text-red-600 w-6 h-6" />
     </nav>
     <slot />
 
@@ -74,26 +76,27 @@ import { collection } from "firebase/firestore";
 import { useRoute } from "vue-router";
 import { useCurrentVendor } from "~/utils/composables/useCurrentVendor";
 import { useVendors } from "~/utils/composables/useVendors";
-const { data: authData } = useAuth();
+const { data: authData, signOut } = useAuth();
 const route = useRoute();
 const stateVendors = useVendors();
 const db = useFirestore();
 const vendorsCollection = collection(db, "vendors");
 const vendors = useCollection(vendorsCollection).value;
 stateVendors.value = vendors as Vendors[];
+
 const currentVendor = stateVendors.value.find(
-  (vendor) => vendor.email === authData.value?.user?.email
+	(vendor) => vendor.email === authData.value?.user?.email,
 );
 if (currentVendor) {
-  useCurrentVendor().value = currentVendor;
+	useCurrentVendor().value = currentVendor;
 }
 
 function checkUser() {
-  if (!authData.value?.user) {
-    if (!currentVendor) {
-      return navigateTo("/unauthorized");
-    }
-  }
+	if (!authData.value?.user) {
+		if (!currentVendor) {
+			return navigateTo("/unauthorized");
+		}
+	}
 }
 
 checkUser();
