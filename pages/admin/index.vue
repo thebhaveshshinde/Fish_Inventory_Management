@@ -22,7 +22,7 @@
                 </div>
                 <div
                     class="bg-green-600 w-24 h-24 cursor-pointer rounded-lg flex flex-col items-center justify-center text-white text-3xl font-bold shadow-md">
-                    <span>15</span>
+                    <span>{{ fishermansState.length }}</span>
                     <span class="text-sm font-medium">FisherMans</span>
                 </div>
             </div>
@@ -116,8 +116,9 @@
 <script lang="ts" setup>
 import { Timestamp } from "firebase/firestore";
 import { useVendors } from "~/utils/composables/useVendors";
+import { useFishermans } from "~/utils/composables/useFishermans";
 
-
+const fishermansState = useFishermans();
 const vendorState = useVendors();
 const { data } = useAuth();
 const toast = useToast();
