@@ -20,10 +20,11 @@
                     <UButton @click="signOut()" class="fixed bottom-10 right-10" color="red">Logout</UButton>
 
                     <div class="flex flex-col space-y-4 p-4">
-                        <nuxt-link to="/add-transaction"
+                        <nuxt-link to="/schema"
+                            @click="isOpen=false"
                             class="flex items-center space-x-4 text-white text-2xl font-bold bg-blue-700 hover:bg-blue-900 p-4 rounded-lg w-full">
-                            <UIcon name="i-heroicons-plus-circle" class="w-8 h-8"></UIcon>
-                            <span>Add Transaction</span>
+                            <UIcon name="i-heroicons-cog-6-tooth" class="w-8 h-8"></UIcon>
+                            <span>Manage Schema</span>
                         </nuxt-link>
                         <nuxt-link to="/add-fishermans"
                             class="flex items-center space-x-4 text-white text-2xl font-bold bg-green-700 hover:bg-green-900 p-4 rounded-lg w-full">
@@ -52,8 +53,8 @@
 <script lang="ts" setup>
 import { collection } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
-import { useVendors } from "../utils/composables/useVendors";
 import { useFishermans } from "~/utils/composables/useFishermans";
+import { useVendors } from "../utils/composables/useVendors";
 const stateVendors = useVendors();
 const db = useFirestore();
 const vendorsCollection = collection(db, "vendors");
@@ -64,20 +65,18 @@ const { data } = useCollection(vendorsCollection);
 
 const stateFishermans = useFishermans();
 const fishermansValues = fishermans.value.map((doc) => {
-    return {
-        id: doc.id,
-        ...doc,
-    };
-})
+	return {
+		id: doc.id,
+		...doc,
+	};
+});
 stateFishermans.value = fishermansValues as Fisherman[];
 const vendors = data.value.map((doc) => {
-    return {
-        id: doc.id,
-        ...doc,
-    };
+	return {
+		id: doc.id,
+		...doc,
+	};
 });
-
-
 
 stateVendors.value = vendors as Vendors[];
 
