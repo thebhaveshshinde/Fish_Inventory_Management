@@ -13,7 +13,7 @@
         :columns="columns"
         :rows="fishSchema"
       >
-        <template #Actions-data="row">
+        <template #Actions-data="{ row }">
           <div>
             <button
               @click=""
@@ -22,7 +22,7 @@
               Edit
             </button>
             <button
-              @click=""
+              @click="openDeleteModal(row.id)"
               class="px-4 py-2 ml-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
             >
               Delete
@@ -43,23 +43,50 @@
           <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
         </button>
       </div>
-      <!-- <UserAddForm
-				v-if="vendorUser"
-				:vendor="vendorUser"
-				@close="closeFisherManAddModal()"
-			/> -->
+      <AddSchema @close="closeModal()" />
+    </div>
+  </dialog>
+  <dialog class="modal bg-black/60" :open="isConfirmDialogOpen">
+    <div class="modal-box">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold">Confirm Action</h2>
+        <button
+          @click="isConfirmDialogOpen = false"
+          class="text-gray-500 hover:text-gray-700"
+        >
+          <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
+        </button>
+      </div>
+      <p>Are you sure you want to proceed?</p>
+      <div class="flex justify-end mt-4">
+        <UButton
+          :loading="isDeleting"
+          @click="deleteRecord()"
+          class="px-4 py-2 font-bold text-white bg-green-500 rounded hover:bg-green-700"
+        >
+          Confirm
+        </UButton>
+        <button
+          @click="isConfirmDialogOpen = false"
+          class="px-4 py-2 ml-2 font-bold text-white bg-gray-500 rounded hover:bg-gray-700"
+        >
+          Cancel
+        </button>
+      </div>
     </div>
   </dialog>
 </template>
 <script lang="ts" setup>
-import { collection } from "firebase/firestore";
+import { collection, deleteDoc, doc } from "firebase/firestore";
 import { useCollection, useFirestore } from "vuefire";
 import { onSnapshot } from "firebase/firestore";
+import { ref } from "vue";
 const isSchemaAddFormOpen = ref(false);
 const closeFisherManAddModal = () => {
   isSchemaAddFormOpen.value = false;
 };
-
+const isConfirmDialogOpen = ref(false);
+const idOfSchemaToBeDeleted = ref<string>("");
 const columns = [
   {
     key: "Fish_name",
@@ -78,7 +105,7 @@ const columns = [
   },
   {
     key: "Default_price.Per_Unit",
-    label: "Per Dozen",
+    label: "Per Units",
     class: "bg-gray-900 text-white sticky top-0 z-10",
   },
   {
@@ -89,9 +116,28 @@ const columns = [
 ];
 
 const db = useFirestore();
+const isDeleting = ref(false);
 
 const FishschemaCollection = collection(db, "fish-schema");
 const fishSchema = ref<Fishschema[]>([]);
+
+const closeModal = () => {
+  isSchemaAddFormOpen.value = false;
+};
+
+function openDeleteModal(id: string) {
+  idOfSchemaToBeDeleted.value = id;
+  isConfirmDialogOpen.value = true;
+}
+
+async function deleteRecord() {
+  isDeleting.value = true;
+  await deleteDoc(doc(FishschemaCollection, idOfSchemaToBeDeleted.value));
+  isConfirmDialogOpen.value = false;
+  isDeleting.value = false;
+  idOfSchemaToBeDeleted.value = "";
+}
+
 onSnapshot(FishschemaCollection, (querySnapshot) => {
   fishSchema.value = querySnapshot.docs.map((doc) => ({
     id: doc.id,
