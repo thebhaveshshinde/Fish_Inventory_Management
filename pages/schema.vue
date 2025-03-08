@@ -16,12 +16,6 @@
         <template #Actions-data="{ row }">
           <div>
             <button
-              @click="OpenEditModal(row.id)"
-              class="px-4 py-2 font-bold text-white bg-blue-500 rounded hover:bg-blue-700"
-            >
-              Edit
-            </button>
-            <button
               @click="openDeleteModal(row.id)"
               class="px-4 py-2 ml-2 font-bold text-white bg-red-500 rounded hover:bg-red-700"
             >
@@ -75,34 +69,18 @@
       </div>
     </div>
   </dialog>
-  <dialog class="modal bg-black/60" :open="isEditModalOpen">
-    <div class="modal-box">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold">Edit Fish</h2>
-        <button
-          @click="isEditModalOpen = false"
-          class="text-gray-500 hover:text-gray-700"
-        >
-          <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
-        </button>
-      </div>
-      <EditSchema :fishschemaid="idOfSchemaToBeEdited" />
-    </div>
-  </dialog>
 </template>
 <script lang="ts" setup>
 import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 import { ref } from "vue";
 import { useCollection, useFirestore } from "vuefire";
 const isSchemaAddFormOpen = ref(false);
-const isEditModalOpen = ref(false);
 
 const closeFisherManAddModal = () => {
   isSchemaAddFormOpen.value = false;
 };
 
 const isConfirmDialogOpen = ref(false);
-const idOfSchemaToBeEdited = ref<string>("");
 const idOfSchemaToBeDeleted = ref<string>("");
 const columns = [
   {
@@ -147,10 +125,6 @@ function openDeleteModal(id: string) {
   isConfirmDialogOpen.value = true;
 }
 
-function OpenEditModal(id: string) {
-  isEditModalOpen.value = true;
-  idOfSchemaToBeEdited.value = id;
-}
 async function deleteRecord() {
   isDeleting.value = true;
   await deleteDoc(doc(FishschemaCollection, idOfSchemaToBeDeleted.value));
