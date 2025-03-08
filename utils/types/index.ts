@@ -27,6 +27,13 @@ declare global {
     dateOfJoining: Timestamp;
     isActive?: boolean;
   };
+  type Products = {
+    name: string;
+    quantity: number;
+    typeofquantity: "kg" | "dozens" | "unit";
+    pricedecided: number;
+    totalprice: number;
+  };
   type Transaction = {
     id?: string;
     dateofTransaction: Timestamp;
@@ -34,14 +41,8 @@ declare global {
     fishermanid: string;
     billstatus: "PAID" | "PENDING";
     totalamount: number;
-    modeofpayment: "CASH" | "UPI" | "CHEQUE" | "CARD";
-    products: {
-      name: string;
-      quantity: number;
-      typeofquantity: "kg" | "dozens" | "unit";
-      pricedecided: number;
-      totalprice: number;
-    }[];
+    modeofpayment?: "CASH" | "UPI" | "CHEQUE" | "CARD";
+    products: Products[];
   };
 
   type DefaultPrice = {
