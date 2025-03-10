@@ -14,3 +14,10 @@ export const checkIfUserExistsInVendors = async (
     navigateTo("/unauthorized");
   }
 };
+
+export const convertToIndianFormat = (number: number): string => {
+  return number.toLocaleString("en-IN", {
+    maximumFractionDigits: 2,
+    minimumFractionDigits: 2,
+  });
+};
