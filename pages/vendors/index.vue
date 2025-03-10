@@ -128,9 +128,10 @@
         </button>
       </div>
       <TransactionForm
-        v-if="fishermantobepassedfortransction"
+        v-if="fishermantobepassedfortransction && fishermanschema"
         :fisherman="fishermantobepassedfortransction"
         :fishSchema="fishermanschema"
+        @close="closeTransactionModal()"
       />
     </div>
   </dialog>

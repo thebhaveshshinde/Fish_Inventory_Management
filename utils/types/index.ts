@@ -36,9 +36,12 @@ declare global {
   };
   type Transaction = {
     id?: string;
-    dateofTransaction: Timestamp;
-    vendorsid: string;
-    fishermanid: string;
+    dateoftransaction: Timestamp;
+    vendorsid?: string;
+    fishermanid?: string;
+    fishermanname: string;
+    vendorname: string;
+    fishermanemail: string;
     billstatus: "PAID" | "PENDING";
     totalamount: number;
     modeofpayment?: "CASH" | "UPI" | "CHEQUE" | "CARD";
