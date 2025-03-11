@@ -1,39 +1,48 @@
 <template>
-  <main class="h-full flex flex-wrap p-4 gap-4 overflow-y-scroll bg-gray-50">
+  <main
+    class="flex flex-wrap items-center justify-center h-full gap-4 p-4 overflow-y-scroll bg-gray-50"
+  >
     <div
-      class="w-full md:w-1/3 flex flex-col rounded-lg p-6 shadow-lg bg-white"
+      class="flex flex-col w-full p-6 bg-white rounded-lg shadow-lg md:w-96"
       v-for="transaction in transactions"
       :key="transaction.id"
     >
-      <div class="flex justify-between items-center mb-4">
-        <span class="flex flex-col">
+      <div class="flex items-center justify-between mb-4">
+        <span class="flex items-center gap-2">
           <p class="text-gray-500">Name:</p>
-          <h4 class="text-gray-900 font-semibold">
+          <h4 class="font-semibold text-gray-900">
             {{ transaction.fishermanname }}
+          </h4>
+        </span>
+      </div>
+      <div class="flex items-center justify-between mb-4">
+        <span class="flex flex-col">
+          <p class="text-gray-500">Amount:</p>
+          <h4 class="font-semibold text-gray-900">
+            ₹ {{ convertToIndianFormat(transaction.totalamount) }}
           </h4>
         </span>
         <span class="flex flex-col">
           <p class="text-gray-500">Date:</p>
-          <h4 class="text-gray-900 font-semibold">
+          <h4 class="font-semibold text-gray-900">
             {{
               transaction.dateoftransaction.toDate().toISOString().split("T")[0]
             }}
           </h4>
         </span>
       </div>
-      <div class="flex justify-between items-center mb-4">
-        <span class="flex flex-col">
-          <p class="text-gray-500">Amount:</p>
-          <h4 class="text-gray-900 font-semibold">
-            ₹ {{ convertToIndianFormat(transaction.totalamount) }}
-          </h4>
-        </span>
+      <div class="flex items-center justify-between">
+        <UButton
+          class="text-center w-max"
+          label="Request To Resolve"
+          color="blue"
+        />
+        <UButton
+          class="text-center w-max"
+          label="Bill Details"
+          color="orange"
+        />
       </div>
-      <UButton
-        class="w-max text-center"
-        label="Request To Resolve"
-        color="blue"
-      />
     </div>
   </main>
 </template>

@@ -116,7 +116,7 @@
   <dialog class="modal bg-black/60" :open="isTransactionModalOpen">
     <div class="modal-box">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-xl font-semibold flex items-center gap-2">
+        <h2 class="flex items-center gap-2 text-xl font-semibold">
           <UIcon name="i-heroicons-square-3-stack-3d" class="w-6 h-6" />
           Add Transaction
         </h2>
