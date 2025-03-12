@@ -43,7 +43,7 @@
           {{
             new Date(
               fisherman.dateOfJoining.seconds * 1000
-            ).toLocaleDateString()
+            )?.toLocaleDateString()
           }}
         </p>
         <p class="text-gray-500">
