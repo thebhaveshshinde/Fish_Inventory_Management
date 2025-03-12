@@ -72,7 +72,7 @@
           <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
         </button>
       </div>
-      <Details :transaction="transactionToBePassed" />
+      <Details v-if="transactionToBePassed" :transaction="transactionToBePassed" />
     </div>
   </dialog>
 </template>
