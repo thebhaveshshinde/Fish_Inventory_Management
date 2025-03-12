@@ -1,5 +1,4 @@
 import type { Timestamp } from "firebase/firestore";
-import type { Schema } from "firebase/vertexai";
 
 declare global {
   type Vendors = {
@@ -34,6 +33,7 @@ declare global {
     pricedecided: number;
     totalprice: number;
   };
+
   type Transaction = {
     id?: string;
     dateoftransaction: Timestamp;
@@ -46,6 +46,7 @@ declare global {
     totalamount: number;
     modeofpayment?: "CASH" | "UPI" | "CHEQUE" | "CARD";
     products: Products[];
+    isRequested?: boolean;
   };
 
   type DefaultPrice = {

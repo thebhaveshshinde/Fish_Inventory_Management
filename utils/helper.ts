@@ -10,13 +10,14 @@ export const checkIfUserExistsInVendors = async (
     return;
   } else if (userExists) {
     navigateTo("/vendors/");
-  } else {
-    navigateTo("/unauthorized");
+    return;
   }
+  navigateTo("/unauthorized");
+  return;
 };
 
 export const convertToIndianFormat = (number: number): string => {
-  return number.toLocaleString("en-IN", {
+  return number?.toLocaleString("en-IN", {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   });
