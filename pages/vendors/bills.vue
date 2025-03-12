@@ -1,8 +1,6 @@
 <template>
   <main class="w-full h-screen bg-white">
-    <div
-      class="flex flex-col justify-center gap-4 p-4 border-b-2 border-gray-400 pt-14"
-    >
+    <div class="flex flex-col justify-center gap-4 p-4 border-b-2 border-gray-400 pt-14">
       <div class="flex justify-center space-x-10">
         <div class="w-full p-6 bg-blue-100 rounded-lg shadow-lg card md:w-80">
           <h2 class="mb-4 text-sm font-semibold text-blue-800 md:text-2xl">
@@ -22,51 +20,39 @@
         </div>
       </div>
       <div class="flex justify-center space-x-4 rounded-md tabs">
-        <button
-          :class="[
-            'px-4 py-2 rounded-lg focus:outline-none',
-            {
-              'bg-blue-500 text-white': activeTab === 'PENDING',
-              'bg-gray-200 text-gray-700': activeTab !== 'PENDING',
-            },
-          ]"
-          @click="activeTab = 'PENDING'"
-        >
+        <button :class="[
+          'px-4 py-2 rounded-lg focus:outline-none',
+          {
+            'bg-blue-500 text-white': activeTab === 'PENDING',
+            'bg-gray-200 text-gray-700': activeTab !== 'PENDING',
+          },
+        ]" @click="activeTab = 'PENDING'">
           Pending Bills
         </button>
-        <button
-          :class="[
-            'px-4 py-2 rounded-lg focus:outline-none',
-            {
-              'bg-blue-500 text-white': activeTab === 'PAID',
-              'bg-gray-200 text-gray-700': activeTab !== 'PAID',
-            },
-          ]"
-          @click="activeTab = 'PAID'"
-        >
+        <button :class="[
+          'px-4 py-2 rounded-lg focus:outline-none',
+          {
+            'bg-blue-500 text-white': activeTab === 'PAID',
+            'bg-gray-200 text-gray-700': activeTab !== 'PAID',
+          },
+        ]" @click="activeTab = 'PAID'">
           Paid Bills
         </button>
       </div>
     </div>
     <div>
       <div class="h-[60vh]" v-if="activeTab === 'PENDING'">
-        <PendingComponent
-          :transactions="
-            transactions.filter(
-              (transaction) => transaction.billstatus === 'PENDING'
-            )
-          "
-        />
+        <PendingComponent :transactions="transactions.filter(
+          (transaction) => transaction.billstatus === 'PENDING'
+        )
+          " />
       </div>
 
       <div class="h-[60vh]" v-if="activeTab === 'PAID'">
-        <PaidComponent
-          :transactions="
-            transactions.filter(
-              (transaction) => transaction.billstatus === 'PAID'
-            )
-          "
-        />
+        <PaidComponent :transactions="transactions.filter(
+          (transaction) => transaction.billstatus === 'PAID'
+        )
+          " />
       </div>
     </div>
   </main>
@@ -82,7 +68,7 @@ const transactions = ref<Transaction[]>([]);
 const activeTab = ref("PENDING");
 const db = useFirestore();
 
-onSnapshot(
+const unsubscribe = onSnapshot(
   query(
     collection(db, "transactions"),
     where("vendoremail", "==", data.value?.user?.email)
@@ -115,5 +101,9 @@ const totalPaid = computed(() => {
 
 definePageMeta({
   layout: "vendorslayout",
+  middleware: "sidebase-auth",
 });
+onBeforeUnmount(() => {
+  unsubscribe();
+})
 </script>
