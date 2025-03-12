@@ -1,12 +1,7 @@
 <template>
-  <main
-    class="flex flex-wrap items-center justify-center h-full gap-4 p-4 overflow-y-scroll bg-gray-50"
-  >
-    <div
-      class="flex flex-col w-full p-6 bg-white rounded-lg shadow-lg md:w-96"
-      v-for="transaction in transactions"
-      :key="transaction.id"
-    >
+  <main class="flex flex-wrap items-center justify-center h-full gap-4 p-4 overflow-y-scroll bg-gray-50">
+    <div class="flex flex-col w-full p-6 bg-white rounded-lg shadow-lg md:w-96" v-for="transaction in transactions"
+      :key="transaction.id">
       <div class="flex items-center justify-between mb-4">
         <span class="flex items-center gap-2">
           <p class="text-gray-500">Name:</p>
@@ -35,19 +30,10 @@
         </span>
       </div>
       <div class="flex items-center justify-between">
-        <UButton
-          :disabled="transaction.isRequested"
-          class="text-center w-max"
-          :label="transaction.isRequested ? 'Requested' : 'Request To Resolve'"
-          color="blue"
-          @click="openRequestModal(transaction as Transaction)"
-        />
-        <UButton
-          class="text-center w-max"
-          label="Bill Details"
-          color="orange"
-          @click="isBillDetailsModalOpen = true"
-        />
+        <UButton :disabled="transaction.isRequested" class="text-center w-max"
+          :label="transaction.isRequested ? 'Requested' : 'Request To Resolve'" color="blue"
+          @click="openRequestModal(transaction as Transaction)" />
+        <UButton class="text-center w-max" label="Bill Details" color="orange" @click="openDetailsModal(transaction)" />
       </div>
     </div>
     <UNotifications />
@@ -64,9 +50,9 @@
         {{
           transactionToBePassed
             ? transactionToBePassed.dateoftransaction
-                .toDate()
-                .toISOString()
-                .split("T")[0]
+              .toDate()
+              .toISOString()
+              .split("T")[0]
             : ""
         }}?
       </p>
@@ -82,14 +68,11 @@
     <div class="modal-box">
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-xl font-semibold">Detaild Bill</h2>
-        <button
-          @click="isBillDetailsModalOpen = false"
-          class="text-gray-500 hover:text-gray-700"
-        >
+        <button @click="closeDetailModal()" class="text-gray-500 hover:text-gray-700">
           <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
         </button>
       </div>
-      <div class="text-white">hiii</div>
+      <Details :transaction="transactionToBePassed" />
     </div>
   </dialog>
 </template>
@@ -109,6 +92,16 @@ const db = useFirestore();
 function openRequestModal(transaction: Transaction) {
   transactionToBePassed.value = transaction;
   isRequestModalOpen.value = true;
+}
+
+function closeDetailModal() {
+  isBillDetailsModalOpen.value = false;
+  transactionToBePassed.value = undefined;
+}
+function openDetailsModal(transaction: Transaction) {
+  transactionToBePassed.value = transaction;
+  isBillDetailsModalOpen.value = true;
+
 }
 
 function confirmRequest() {
