@@ -46,6 +46,7 @@
           class="text-center w-max"
           label="Bill Details"
           color="orange"
+          @click="isBillDetailsModalOpen = true"
         />
       </div>
     </div>
@@ -77,6 +78,20 @@
       </div>
     </div>
   </dialog>
+  <dialog class="modal bg-black/60" :open="isBillDetailsModalOpen">
+    <div class="modal-box">
+      <div class="flex items-center justify-between mb-4">
+        <h2 class="text-xl font-semibold">Detaild Bill</h2>
+        <button
+          @click="isBillDetailsModalOpen = false"
+          class="text-gray-500 hover:text-gray-700"
+        >
+          <UIcon name="i-heroicons-x-mark" class="w-6 h-6" />
+        </button>
+      </div>
+      <div class="text-white">hiii</div>
+    </div>
+  </dialog>
 </template>
 <script lang="ts" setup>
 import { collection, doc, updateDoc } from "firebase/firestore";
@@ -87,6 +102,7 @@ const toast = useToast();
 const { transactions } = toRefs(props);
 const transactionToBePassed = ref<Transaction>();
 const isRequestModalOpen = ref(false);
+const isBillDetailsModalOpen = ref(false);
 
 const db = useFirestore();
 
