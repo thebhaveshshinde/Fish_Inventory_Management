@@ -9,7 +9,6 @@ export const checkIfUserExistsInVendors = async (
   const fishermanExists = fishermans.some(
     (fisherman) => fisherman?.email?.toLowerCase() === email?.toLowerCase()
   );
-
   if (admins.includes(email)) {
     return;
   } else if (userExists) {
@@ -21,7 +20,6 @@ export const checkIfUserExistsInVendors = async (
   }
   navigateTo("/unauthorized");
   return;
- 
 };
 
 export const convertToIndianFormat = (number: number): string => {
