@@ -42,6 +42,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { definePageMeta } from "#imports";
 import { useFirestore } from "vuefire";
 import { useVendors } from "~/utils/composables/useVendors";
+import { Timestamp } from "firebase/firestore";
 
 
 const db = useFirestore()
@@ -91,5 +92,31 @@ const filteredTransactions = computed(() => {
     });
 });
 
+const exportCSV = () => {
+    const data = filteredTransactions.value.map(transaction => {
+        const transactionData: any = {};
+        columns.forEach(column => {
+            transactionData[column.key] = transaction[column.key as keyof Transaction];
+        });
+        return transactionData;
+    });
+    const csvData = [
+        columns.map(column => column.label).join(","),
+        ...data.map(row => Object.keys(row).map(key => {
+            if (key === "dateoftransaction") {
+                return (row[key] as Timestamp).toDate().toISOString();
+            }
+            return row[key];
+        }).join(","))
+    ].join("\n");
+    const blob = new Blob([csvData], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.setAttribute("download", "transactions.csv");
+    link.style.visibility = "hidden";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 </script>

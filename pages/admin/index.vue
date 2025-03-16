@@ -29,7 +29,7 @@
     </div>
     <div class="flex flex-row justify-center space-x-4 mt-10">
       <UButton @click="isAddVendorModalOpen = true" color="gray" size="xl" variant="solid">Add Vendors</UButton>
-      <UButton color="teal" size="xl" variant="solid"> Manage Users </UButton>
+      <UButton @click="navigateTo('/vendorsmanagement')" color="teal" size="xl" variant="solid"> Manage Users </UButton>
     </div>
     <dialog class="modal bg-black/60" :open="isAddVendorModalOpen">
       <div class="bg-gray-900 px-4 py-2 rounded-md">
