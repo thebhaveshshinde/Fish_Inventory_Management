@@ -5,7 +5,7 @@
             <UButton @click="exportCSV()" color="green" class="px-4 py-2">Export CSV</UButton>
         </div>
         <UCard class="h-[90vh]">
-            <div class="flex items-center gap-4p-4">
+            <div class="flex  flex-wrap gap-2 items-center gap-4p-4">
                 <div class="flex items-center space-x-2">
                     <label class="block text-sm font-medium text-gray-700 dark:text-gray-200">Vendor:</label>
                     <select @change="getTransactions()" v-model="selectedVendor"
