@@ -2,7 +2,7 @@
   <main class="flex flex-col bg-gray-100 py-20 min-h-screen">
     <div class="py-10 text-center">
       <h1 class="text-3xl md:text-4xl lg:text-5xl text-gray-600">
-        Fishery Management
+        Fishery Data Management
       </h1>
       <h2 class="text-xl md:text-2xl lg:text-3xl text-gray-500">
         A CRM that makes it easy
