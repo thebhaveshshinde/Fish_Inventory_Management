@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     originEnvKey: "AUTH_ORIGIN",
     baseURL:
       process.env.ENVIRONMENT === "DEVELOPMENT"
+      // process.env.NODE_ENV === "development"
         ? "http://localhost:3000/api/auth"
         : "https://fish-inventory-management.vercel.app/api/auth",
     provider: {

@@ -7,7 +7,7 @@
             Total Payable
           </h2>
           <p class="font-bold text-blue-900 text-smmd:text-3xl">
-            ₹ {{ totalPayable }}
+            ₹ {{ totalPayable }} /-
           </p>
         </div>
         <div class="w-full p-6 bg-green-100 rounded-lg shadow-lg card md:w-80">
@@ -15,7 +15,7 @@
             Total Paid
           </h2>
           <p class="text-sm font-bold text-green-900 md:text-3xl">
-            {{ totalPaid }}
+            ₹ {{ totalPaid }} /-
           </p>
         </div>
       </div>
