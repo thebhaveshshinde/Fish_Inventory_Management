@@ -6,7 +6,7 @@
           <h2 class="mb-4 text-sm font-semibold text-blue-800 md:text-2xl">
             Total Payable
           </h2>
-          <p class="font-bold text-blue-900 text-smmd:text-3xl">
+          <p class="text-sm font-bold text-blue-900 md:text-3xl">
             ₹ {{ totalPayable }} /-
           </p>
         </div>
