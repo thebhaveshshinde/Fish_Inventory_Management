@@ -1,10 +1,10 @@
 <template>
   <main>
     <form>
-      <div class="flex border border-gray-100 rounded-md my-2 flex-col gap-1">
+      <div class="flex flex-col gap-1 my-2 border border-gray-100 rounded-md">
         <span v-if="products.length > 0" class="flex px-2" v-for="product in products">
-          <div class="flex justify-between items-center">
-            <div class="flex gap-2 items-center">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
               <span class="text-sm font-medium text-gray-700 dark:text-gray-100">{{ product.name }}</span>
               <span class="text-sm text-gray-500 dark:text-gray-100">Price: {{ product.pricedecided }} x</span>
               <span class="text-sm text-gray-500 dark:text-gray-100">Quantity: {{ product.quantity }} =</span>
@@ -13,7 +13,7 @@
               {{ product.totalprice }}
             </div>
             <button @click="removeProduct(product.name)"
-              class="text-red-600 mx-2 hover:text-red-800 focus:outline-none">
+              class="mx-2 text-red-600 hover:text-red-800 focus:outline-none">
               ✖
             </button>
           </div>
@@ -21,19 +21,19 @@
       </div>
 
       <div class="mb-4">
-        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Product Name:</label>
+        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Fish Name:</label>
         <select id="name" v-model="product.name" required
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           <option v-for="fish in fishSchema" :key="fish.id" :value="fish.Fish_name">
             {{ fish.Fish_name }}
           </option>
         </select>
       </div>
       <div class="mb-4">
-        <label for="typeofquantity" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Type of
-          Quantity:</label>
+        <label for="typeofquantity" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Unit of 
+          Measurement:</label>
         <select id="typeofquantity" v-model="product.typeofquantity"
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           <option value="Per_unit">Unit</option>
           <option value="Per_Kg">Kg</option>
           <option value="Per_Dozen">Dozen</option>
@@ -42,12 +42,12 @@
       <div class="mb-4">
         <label for="quantity" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Quantity:</label>
         <input type="number" id="quantity" v-model="product.quantity" required
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+          class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
       </div>
 
       <div class="mb-4">
         <label for="pricedecided" class="block text-sm font-medium text-gray-700 dark:text-gray-100">Price Decided:
-          <p class="text-red-900 text-xs">
+          <p class="text-xs text-red-900">
             Default_price ({{
               fishSchema.find((sc) => sc.Fish_name === product.name)
                 ?.Default_price[product.typeofquantity]
@@ -55,17 +55,17 @@
           </p>
         </label>
         <input type="number" id="pricedecided" v-model="product.pricedecided" required
-          class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
+          class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" />
       </div>
 
       <!-- // buttons div  -->
       <div class="flex items-center justify-center gap-2">
         <button @click.prevent="addmore()" type="button"
-          class="mt-4 w-5/12 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+          class="inline-flex justify-center w-5/12 px-4 py-2 mt-4 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
           Add More
         </button>
         <UButton :loading="isLoading" color="blue" :disabled="products?.length === 0" @click="addTansaction()"
-          class="mt-4 w-5/12 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+          class="inline-flex justify-center w-5/12 px-4 py-2 mt-4 text-sm font-medium text-white bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
           Submit
         </UButton>
       </div>
