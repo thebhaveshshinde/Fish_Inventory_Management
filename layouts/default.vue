@@ -29,7 +29,7 @@
             <nuxt-link to="/schema" @click="isOpen = false"
               class="flex items-center w-full p-4 space-x-4 text-2xl font-bold text-white bg-blue-700 rounded-lg hover:bg-blue-900">
               <UIcon name="i-heroicons-cog-6-tooth" class="w-8 h-8"></UIcon>
-              <span>Manage Schema</span>
+              <span>Manage Fish Schema</span>
             </nuxt-link>
             <nuxt-link to="/export"
               class="flex items-center w-full p-4 space-x-4 text-2xl font-bold text-white bg-green-700 rounded-lg hover:bg-green-900"
